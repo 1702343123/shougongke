@@ -19,13 +19,13 @@ public class UserControllerTest extends BasicTest {
     UserService userService;
     @Test
     public void findUserMapperTest() {
-        User user = userMapper.selectUserById(1);
+        User user = userMapper.login("Joker","java");
         System.out.println(user.toString());
     }
 
     @Test
     public void findUserServiceTest() {
-        ResponseResult userById = userService.findUserById(1);
+        ResponseResult userById = userService.login("Joker","java");
         System.out.println(userById.toString());
     }
 
@@ -34,8 +34,29 @@ public class UserControllerTest extends BasicTest {
 
     @Test
     public void findUserControllerTest() {
-        ResponseResult res = userController.findUserById(1);
+        ResponseResult res = userController.login("Joker","java");
         System.out.println(res.toString());
 
+    }
+
+    @Test
+    public void insertUserTest() {
+        User user = new User();
+        user.setName("Joker");
+        user.setImg("imgURL");
+        user.setIsDel(0);
+        user.setPassword("java");
+        int insert = userMapper.insert(user);
+        if (insert == 1) {
+            System.out.println("成功");
+        } else {
+            System.out.println("失败");
+        }
+    }
+
+    @Test
+    public void register() {
+        ResponseResult responseResult = userService.insertUser("mary", "java");
+        System.out.println(responseResult.toString());
     }
 }

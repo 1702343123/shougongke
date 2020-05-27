@@ -11,9 +11,18 @@
   </resultMap>
 
 
-  <select id="selectUserById" resultMap="BaseResultMap">
+  <select id="login" resultMap="BaseResultMap" parameterType="String">
     select id, `name`, `password`, is_del, img
     from t_user
+    where name=#{name}
+    and password=#{password}
   </select>
+  <insert id="insert" parameterType="cn.niit.shougongke.entity.User">
+    insert into t_user (id, name, password, img,is_del)
+    values (#{id,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},
+    #{password,jdbcType=VARCHAR}, #{img},
+     #{isDel,jdbcType=INTEGER})
+  </insert>
+
 
 </mapper>
