@@ -29,4 +29,10 @@ public class MomentController {
     public ResponseResult MomentDetails(int id) {
         return momentService.MomentDetails(id);
     }
+
+    @GetMapping(value = "/addMoment")
+    @ApiOperation(value = "添加")
+    public ResponseResult addMoment(int userId, String content, String img) {
+        return momentService.addMoment(userId,content,img);
+    }
 }

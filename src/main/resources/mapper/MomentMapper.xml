@@ -9,7 +9,12 @@
     <result column="img" jdbcType="LONGVARCHAR" property="img" />
     <result column="create_time" property="createTime" />
   </resultMap>
-
+  <insert id="insert" parameterType="cn.niit.shougongke.entity.Moment">
+    insert into t_moment (id, user_id, content, img,is_del,create_time)
+    values (#{id,jdbcType=INTEGER},#{userId},
+    #{content,jdbcType=VARCHAR}, #{img},
+     #{isDel,jdbcType=INTEGER},#{createTime})
+  </insert>
 
 
 </mapper>

@@ -18,4 +18,6 @@ public interface MomentMapper {
     @Select("select * from t_moment where is_del=0 and id=#{id}")
     Moment selectById(@Param("id") Integer id);
 
+    int insert(Moment moment);
+
 }

@@ -13,6 +13,7 @@ import cn.niit.shougongke.util.ResponseResult;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public class UserControllerTest extends BasicTest {
@@ -109,5 +110,29 @@ public class UserControllerTest extends BasicTest {
     public void momentByIdServiceTest() {
         ResponseResult responseResult = momentService.MomentDetails(1);
         System.out.println(responseResult.toString());
+    }
+
+    @Test
+    public void momentInsertTest() {
+        Moment moment = new Moment();
+        moment.setCreateTime(new Timestamp(System.currentTimeMillis()));
+        moment.setContent("江上之清风");
+        moment.setUserId(1);
+        moment.setImg("https://img2.panbingwen.cn/img/00c5d70b-5dd7-44cb-adfa-a2bbffcf99a6.jpg");
+        moment.setIsDel(0);
+        int insert = momentMapper.insert(moment);
+        if (insert == 1) {
+            System.out.println("成功======");
+        }else {
+            System.out.println("失败--");
+        }
+
+    }
+
+    @Test
+    public void addMomentTest() {
+        ResponseResult re = momentController.addMoment(1, "山间之明月", "https://img2.panbingwen.cn/img/00c5d70b-5dd7-44cb-adfa-a2bbffcf99a6.jpg");
+        System.out.println(re.toString());
+
     }
 }
