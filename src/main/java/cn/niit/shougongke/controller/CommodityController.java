@@ -1,6 +1,8 @@
 package cn.niit.shougongke.controller;
 
+import cn.niit.shougongke.entity.Collect;
 import cn.niit.shougongke.entity.Commodity;
+import cn.niit.shougongke.service.CollectService;
 import cn.niit.shougongke.service.CommodityService;
 import cn.niit.shougongke.service.ShoppingService;
 import cn.niit.shougongke.util.Client;
@@ -37,5 +39,13 @@ public class CommodityController {
     @ApiOperation(value = "加入购物车/取消加入购物车")
     public ResponseResult goShopping(int commodityId,int userId) {
         return shoppingService.checkGoShopping(userId,commodityId);
+    }
+
+    @Autowired
+    private CollectService collectService;
+    @GetMapping(value = "/goCollect")
+    @ApiOperation(value = "收藏/取消收藏")
+    public ResponseResult goCollect(int commodityId,int userId) {
+        return collectService.checkGoCollect(userId,commodityId);
     }
 }

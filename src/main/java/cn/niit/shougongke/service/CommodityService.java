@@ -1,8 +1,10 @@
 package cn.niit.shougongke.service;
 
+import cn.niit.shougongke.entity.Collect;
 import cn.niit.shougongke.entity.Comment;
 import cn.niit.shougongke.entity.Commodity;
 import cn.niit.shougongke.entity.Shopping;
+import cn.niit.shougongke.mapper.CollectMapper;
 import cn.niit.shougongke.mapper.CommentMapper;
 import cn.niit.shougongke.mapper.CommodityMapper;
 import cn.niit.shougongke.mapper.ShoppingMapper;
@@ -26,12 +28,18 @@ public class CommodityService {
         return ResponseResult.success(commodities);
     }
 
+    @Autowired
+    private CollectMapper collectMapper;
     //    详情
     public ResponseResult CommodityById(int commodityId,int userId) {
         Commodity commodity = commodityMapper.selectById(commodityId);
+//        购物车状态
         Shopping shopping = shoppingMapper.selectByIdOrNo(commodityId, userId);
         int isDel = shopping.getIsDel();
         commodity.setInCar(isDel);
+//        收藏状态
+        Collect collect = collectMapper.selectByIdOrNo(commodityId, userId);
+        commodity.setInCollect(collect.getIsDel());
         return ResponseResult.success(commodity);
     }
 }

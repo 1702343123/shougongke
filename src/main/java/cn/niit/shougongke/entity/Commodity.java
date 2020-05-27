@@ -6,6 +6,15 @@ public class Commodity {
     private Integer price;
     private String img;
     private int inCar;
+    private int inCollect;
+
+    public int getInCollect() {
+        return inCollect;
+    }
+
+    public void setInCollect(int inCollect) {
+        this.inCollect = inCollect;
+    }
 
     public int getInCar() {
         return inCar;
