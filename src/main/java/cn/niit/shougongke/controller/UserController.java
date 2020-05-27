@@ -20,7 +20,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @ApiOperation(value = "查找用户", notes = "输入用户ID")
+    @ApiOperation(value = "登录", notes = "输入账号密码")
     @GetMapping(value = "/login")
     public ResponseResult login(String name,String password) {
         return userService.login(name,password);

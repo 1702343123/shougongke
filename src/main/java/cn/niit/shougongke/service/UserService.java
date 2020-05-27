@@ -1,6 +1,8 @@
 package cn.niit.shougongke.service;
 
 import cn.niit.shougongke.entity.User;
+import cn.niit.shougongke.mapper.CollectMapper;
+import cn.niit.shougongke.mapper.ShoppingMapper;
 import cn.niit.shougongke.mapper.UserMapper;
 import cn.niit.shougongke.util.MsgConst;
 import cn.niit.shougongke.util.ResponseResult;
@@ -11,12 +13,19 @@ import org.springframework.stereotype.Service;
 public class UserService {
     @Autowired
     private UserMapper userMapper;
-
+    @Autowired
+    private CollectMapper collectMapper;
+    @Autowired
+    private ShoppingMapper shoppingMapper;
     public ResponseResult login(String name,String password) {
         User user = userMapper.login(name,password);
         if (user == null) {
             return ResponseResult.error(13, "账号或密码不正确");
         }
+        int collectNum = collectMapper.countNum(user.getId());
+        user.setCollectNum(collectNum);
+        int countNum = shoppingMapper.countNum(user.getId());
+        user.setShoppingNum(countNum);
         return ResponseResult.success(user);
     }
 

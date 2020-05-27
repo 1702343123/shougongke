@@ -6,8 +6,24 @@ public class User {
     private String name;
     private String img;
     private String password;
+    private int collectNum;
+    private int shoppingNum;
 
+    public int getCollectNum() {
+        return collectNum;
+    }
 
+    public void setCollectNum(int collectNum) {
+        this.collectNum = collectNum;
+    }
+
+    public int getShoppingNum() {
+        return shoppingNum;
+    }
+
+    public void setShoppingNum(int shoppingNum) {
+        this.shoppingNum = shoppingNum;
+    }
 
     public Integer getId() {
         return id;

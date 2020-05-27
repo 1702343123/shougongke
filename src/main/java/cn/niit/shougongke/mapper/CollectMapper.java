@@ -23,4 +23,9 @@ public interface CollectMapper {
 
     //收藏/取消收藏
     int updateStatus(@Param("isDel") int isDel, @Param("id") int id);
+
+    //    统计收藏数量
+    @Select("SELECT COUNT(*) FROM t_collect WHERE is_del=0 and user_id=#{userId}")
+    int countNum(@Param("userId") int userId);
+
 }
