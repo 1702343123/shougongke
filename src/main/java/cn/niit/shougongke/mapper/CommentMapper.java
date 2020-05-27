@@ -12,4 +12,6 @@ public interface CommentMapper {
 
     @Select("select * from t_comment where moment_id=#{id}")
     Comment selectById(@Param("id")Integer id);
+
+    int insert(Comment comment);
 }

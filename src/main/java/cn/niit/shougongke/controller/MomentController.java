@@ -1,5 +1,6 @@
 package cn.niit.shougongke.controller;
 
+import cn.niit.shougongke.service.CommentService;
 import cn.niit.shougongke.service.MomentService;
 import cn.niit.shougongke.util.Client;
 import cn.niit.shougongke.util.ResponseResult;
@@ -7,6 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,5 +36,14 @@ public class MomentController {
     @ApiOperation(value = "添加")
     public ResponseResult addMoment(int userId, String content, String img) {
         return momentService.addMoment(userId,content,img);
+    }
+
+    @Autowired
+    private CommentService commentService;
+
+    @PostMapping(value = "/addComment")
+    @ApiOperation(value = "添加评论")
+    public ResponseResult addComment(Integer userId, Integer momentId, String content) {
+        return commentService.addComment(userId, momentId, content);
     }
 }

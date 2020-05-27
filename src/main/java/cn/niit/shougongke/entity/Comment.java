@@ -12,6 +12,15 @@ public class Comment {
     private String time;
     private Integer userId;
     private User user;
+    private int isDel;
+
+    public int getIsDel() {
+        return isDel;
+    }
+
+    public void setIsDel(int isDel) {
+        this.isDel = isDel;
+    }
 
     public Integer getId() {
         return id;

@@ -7,6 +7,7 @@ import cn.niit.shougongke.entity.User;
 import cn.niit.shougongke.mapper.CommentMapper;
 import cn.niit.shougongke.mapper.MomentMapper;
 import cn.niit.shougongke.mapper.UserMapper;
+import cn.niit.shougongke.service.CommentService;
 import cn.niit.shougongke.service.MomentService;
 import cn.niit.shougongke.service.UserService;
 import cn.niit.shougongke.util.ResponseResult;
@@ -133,6 +134,31 @@ public class UserControllerTest extends BasicTest {
     public void addMomentTest() {
         ResponseResult re = momentController.addMoment(1, "山间之明月", "https://img2.panbingwen.cn/img/00c5d70b-5dd7-44cb-adfa-a2bbffcf99a6.jpg");
         System.out.println(re.toString());
+
+    }
+
+    @Test
+    public void addCommentTest() {
+        Comment comment = new Comment();
+        comment.setContent("啦啦");
+        comment.setCreateTime(new Timestamp(System.currentTimeMillis()));
+        comment.setUserId(1);
+        comment.setIsDel(0);
+        comment.setMomentId(1);
+        int insert = commentMapper.insert(comment);
+        if (insert == 1) {
+            System.out.println("222222");
+        } else {
+            System.out.println("3333333");
+        }
+    }
+
+    @Autowired
+    CommentService commentService;
+    @Test
+    public void addComment() {
+        ResponseResult res = commentService.addComment(1, 1, "嘻嘻");
+        System.out.println(res.toString());
 
     }
 }
