@@ -11,8 +11,15 @@ public class Moment {
     private String time;
     private Integer isDel;
     private User user;
+    private int inLike;
 
+    public int getInLike() {
+        return inLike;
+    }
 
+    public void setInLike(int inLike) {
+        this.inLike = inLike;
+    }
 
     public Integer getId() {
         return id;

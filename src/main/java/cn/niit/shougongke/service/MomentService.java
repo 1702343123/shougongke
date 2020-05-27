@@ -1,11 +1,15 @@
 package cn.niit.shougongke.service;
 
+import cn.niit.shougongke.entity.Collect;
+import cn.niit.shougongke.entity.Like;
 import cn.niit.shougongke.entity.Moment;
 import cn.niit.shougongke.entity.User;
+import cn.niit.shougongke.mapper.LikeMapper;
 import cn.niit.shougongke.mapper.MomentMapper;
 import cn.niit.shougongke.mapper.UserMapper;
 import cn.niit.shougongke.util.MsgConst;
 import cn.niit.shougongke.util.ResponseResult;
+import cn.niit.shougongke.util.StatusConst;
 import cn.niit.shougongke.util.StringUtil;
 import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +25,8 @@ public class MomentService {
     MomentMapper momentMapper;
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    LikeMapper likeMapper;
 
     public ResponseResult AllMoment() {
         List<Moment> moments = momentMapper.selectAll();
@@ -34,11 +40,13 @@ public class MomentService {
     }
 
     //    详情
-    public ResponseResult MomentDetails(int id) {
-        Moment moment = momentMapper.selectById(id);
+    public ResponseResult MomentDetails(int moment_id) {
+        Moment moment = momentMapper.selectById(moment_id);
         moment.setTime(StringUtil.getDateString(moment.getCreateTime()));
         User user = userMapper.findUserById(moment.getUserId());
         moment.setUser(user);
+        Like like = likeMapper.selectByIdOrNo(moment_id, user.getId());
+        moment.setInLike(like.getIsDel());
         return ResponseResult.success(moment);
     }
 
@@ -60,4 +68,30 @@ public class MomentService {
             return ResponseResult.error(13, "发布失败");
         }
     }
+
+
+//    点赞/取消点赞
+public ResponseResult checkGoLike(Integer userId, Integer momentId) {
+    Like likeOrNo;
+    likeOrNo = likeMapper.selectById(momentId, userId);
+    String success = "点赞成功";
+    String cancel = "取消点赞成功";
+    if (likeOrNo == null) {
+        int i = likeMapper.insert(userId, momentId,0);
+        if (i == 1) {
+            return new ResponseResult(0, success);
+        }
+        return ResponseResult.error(StatusConst.ERROR, MsgConst.FAIL);
+    }
+    int i = likeMapper.updateStatus(likeOrNo.getIsDel(), likeOrNo.getId());
+    if (i == 1) {
+        likeOrNo = likeMapper.selectById(momentId, userId);
+        if (likeOrNo.getIsDel() == 1) {
+            return new ResponseResult(1, cancel);
+        }
+        return new ResponseResult(0, success);
+    }
+    return ResponseResult.error(StatusConst.ERROR, MsgConst.FAIL);
+}
+
 }

@@ -46,4 +46,10 @@ public class MomentController {
     public ResponseResult addComment(Integer userId, Integer momentId, String content) {
         return commentService.addComment(userId, momentId, content);
     }
+    @PostMapping(value = "/goLike")
+    @ApiOperation(value = "点赞/取消点赞")
+    public ResponseResult goLike(Integer userId, Integer momentId) {
+        return momentService.checkGoLike(userId,momentId);
+    }
+
 }

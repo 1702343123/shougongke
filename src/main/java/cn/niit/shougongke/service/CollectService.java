@@ -1,5 +1,6 @@
 package cn.niit.shougongke.service;
 
+import cn.niit.shougongke.entity.Collect;
 import cn.niit.shougongke.entity.Shopping;
 import cn.niit.shougongke.mapper.CollectMapper;
 import cn.niit.shougongke.util.MsgConst;
@@ -13,7 +14,7 @@ public class CollectService {
     @Autowired
     private CollectMapper collectMapper;
     public ResponseResult checkGoCollect(Integer userId, Integer commodityId) {
-        Shopping likeOrNo;
+        Collect likeOrNo;
         likeOrNo = collectMapper.selectById(commodityId, userId);
         String success = "收藏成功";
         String cancel = "取消收藏成功";
