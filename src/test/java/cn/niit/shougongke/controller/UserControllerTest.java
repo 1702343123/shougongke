@@ -2,12 +2,15 @@ package cn.niit.shougongke.controller;
 
 import cn.niit.shougongke.BasicTest;
 import cn.niit.shougongke.entity.Comment;
+import cn.niit.shougongke.entity.Commodity;
 import cn.niit.shougongke.entity.Moment;
 import cn.niit.shougongke.entity.User;
 import cn.niit.shougongke.mapper.CommentMapper;
+import cn.niit.shougongke.mapper.CommodityMapper;
 import cn.niit.shougongke.mapper.MomentMapper;
 import cn.niit.shougongke.mapper.UserMapper;
 import cn.niit.shougongke.service.CommentService;
+import cn.niit.shougongke.service.CommodityService;
 import cn.niit.shougongke.service.MomentService;
 import cn.niit.shougongke.service.UserService;
 import cn.niit.shougongke.util.ResponseResult;
@@ -160,5 +163,18 @@ public class UserControllerTest extends BasicTest {
         ResponseResult res = commentService.addComment(1, 1, "嘻嘻");
         System.out.println(res.toString());
 
+    }
+
+    @Autowired
+    CommodityMapper commodityMapper;
+@Test
+    public void selectAllCommodityTest() {
+    List<Commodity> commodityMappers = commodityMapper.selectAll();
+    System.out.println(commodityMappers.toString());
+}
+
+    @Test
+    public void selectCommodityByIdTest() {
+        commodityMapper.selectById(1);
     }
 }
