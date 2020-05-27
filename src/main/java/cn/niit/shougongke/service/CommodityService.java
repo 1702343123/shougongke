@@ -2,8 +2,10 @@ package cn.niit.shougongke.service;
 
 import cn.niit.shougongke.entity.Comment;
 import cn.niit.shougongke.entity.Commodity;
+import cn.niit.shougongke.entity.Shopping;
 import cn.niit.shougongke.mapper.CommentMapper;
 import cn.niit.shougongke.mapper.CommodityMapper;
+import cn.niit.shougongke.mapper.ShoppingMapper;
 import cn.niit.shougongke.util.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ import java.util.List;
 public class CommodityService {
     @Autowired
     private CommodityMapper commodityMapper;
+    @Autowired
+    private ShoppingMapper shoppingMapper;
 
     public ResponseResult allCommodity() {
         List<Commodity> commodities = commodityMapper.selectAll();
@@ -23,8 +27,11 @@ public class CommodityService {
     }
 
     //    详情
-    public ResponseResult CommodityById(int id) {
-        Commodity commodity = commodityMapper.selectById(id);
+    public ResponseResult CommodityById(int commodityId,int userId) {
+        Commodity commodity = commodityMapper.selectById(commodityId);
+        Shopping shopping = shoppingMapper.selectByIdOrNo(commodityId, userId);
+        int isDel = shopping.getIsDel();
+        commodity.setInCar(isDel);
         return ResponseResult.success(commodity);
     }
 }

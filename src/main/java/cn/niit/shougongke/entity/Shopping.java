@@ -4,9 +4,29 @@ public class Shopping {
     private int id;
     private int userId;
     private int isDel;
+    private int commodityId;
+
+
+    public int getCommodityId() {
+        return commodityId;
+    }
+
+    public void setCommodityId(int commodityId) {
+        this.commodityId = commodityId;
+    }
 
     public int getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return "Shopping{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", isDel=" + isDel +
+                ", commodityId=" + commodityId +
+                '}';
     }
 
     public void setId(int id) {

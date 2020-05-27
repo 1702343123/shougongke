@@ -1,14 +1,8 @@
 package cn.niit.shougongke.controller;
 
 import cn.niit.shougongke.BasicTest;
-import cn.niit.shougongke.entity.Comment;
-import cn.niit.shougongke.entity.Commodity;
-import cn.niit.shougongke.entity.Moment;
-import cn.niit.shougongke.entity.User;
-import cn.niit.shougongke.mapper.CommentMapper;
-import cn.niit.shougongke.mapper.CommodityMapper;
-import cn.niit.shougongke.mapper.MomentMapper;
-import cn.niit.shougongke.mapper.UserMapper;
+import cn.niit.shougongke.entity.*;
+import cn.niit.shougongke.mapper.*;
 import cn.niit.shougongke.service.CommentService;
 import cn.niit.shougongke.service.CommodityService;
 import cn.niit.shougongke.service.MomentService;
@@ -176,5 +170,26 @@ public class UserControllerTest extends BasicTest {
     @Test
     public void selectCommodityByIdTest() {
         commodityMapper.selectById(1);
+    }
+    @Autowired
+    ShoppingMapper shoppingMapper;
+
+    @Test
+    public void shoppingSelectTest() {
+        Shopping shopping = shoppingMapper.selectById(1, 1);
+        System.out.println(shopping.toString());
+
+
+    }
+
+    @Test
+    public void insertShoppingTest() {
+
+        shoppingMapper.insert(3,1,0);
+    }
+
+    @Test
+    public void updateStatusTest() {
+        shoppingMapper.updateStatus(1, 3);
     }
 }

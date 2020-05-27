@@ -5,7 +5,15 @@ public class Commodity {
     private String title;
     private Integer price;
     private String img;
+    private int inCar;
 
+    public int getInCar() {
+        return inCar;
+    }
+
+    public void setInCar(int inCar) {
+        this.inCar = inCar;
+    }
     public Integer getId() {
         return id;
     }

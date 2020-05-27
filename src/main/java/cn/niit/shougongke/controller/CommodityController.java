@@ -2,6 +2,7 @@ package cn.niit.shougongke.controller;
 
 import cn.niit.shougongke.entity.Commodity;
 import cn.niit.shougongke.service.CommodityService;
+import cn.niit.shougongke.service.ShoppingService;
 import cn.niit.shougongke.util.Client;
 import cn.niit.shougongke.util.ResponseResult;
 import io.swagger.annotations.Api;
@@ -26,7 +27,15 @@ public class CommodityController {
     }
     @GetMapping(value = "/commodityById")
     @ApiOperation(value = "商品详情")
-    public ResponseResult commodityById(int id) {
-        return commodityService.CommodityById(id);
+    public ResponseResult commodityById(int commodityId,int userId) {
+        return commodityService.CommodityById(commodityId,userId);
+    }
+
+    @Autowired
+    private ShoppingService shoppingService;
+    @GetMapping(value = "/goShopping")
+    @ApiOperation(value = "加入购物车/取消加入购物车")
+    public ResponseResult goShopping(int commodityId,int userId) {
+        return shoppingService.checkGoShopping(userId,commodityId);
     }
 }
